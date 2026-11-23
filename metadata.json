@@ -1,0 +1,6 @@
+{
+  "name": "TermVault",
+  "description": "High-performance Linux backup application with retro terminal controls, modern cards, incremental deduplication, AES-256-GCM encrypted local storage, and automated Google Drive synchronization.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
