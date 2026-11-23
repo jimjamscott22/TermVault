@@ -90,7 +90,7 @@ export const TerminalConsole: React.FC<TerminalConsoleProps> = ({
           <span className="truncate font-mono text-xs font-medium text-[#E6EDF3]">
             ops@{hostname}:/var/lib/termvault
           </span>
-          <span className="hidden sm:inline font-mono text-xs text-[#6E7681]">
+          <span className="hidden sm:inline font-mono text-xs text-[#6E7681] whitespace-nowrap shrink-0">
             · tty0 · {logs.length} lines
           </span>
         </div>

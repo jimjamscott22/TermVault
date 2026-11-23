@@ -130,7 +130,11 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         <div className="rounded-lg border border-[#222933] bg-[#12161C] p-5">
           <div className="text-xs font-medium text-[#8B949E]">Latest Snapshot</div>
           <div className="mt-2 font-mono text-2xl font-semibold tabular-nums text-[#E6EDF3]">
-            {latestSnapshot ? `${latestSnapshot.throughputMBs.toFixed(1)} MB/s` : 'Idle'}
+            {latestSnapshot
+              ? latestSnapshot.throughputMBs >= 0.1
+                ? `${latestSnapshot.throughputMBs.toFixed(1)} MB/s`
+                : `${Math.max(1, Math.round(latestSnapshot.totalRawBytes / Math.max(latestSnapshot.durationMs / 1000, 0.01) / 1024))} KB/s`
+              : 'Idle'}
           </div>
           <div className="mt-2 truncate text-xs text-[#8B949E] font-mono tabular-nums">
             {latestSnapshot
@@ -147,8 +151,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         aria-label="Backup Runner"
         className="rounded-lg border border-[#222933] bg-[#12161C] p-5"
       >
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
+        <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+          <div className="min-w-0">
             <h2 className="text-base font-semibold text-[#E6EDF3]">
               Real-Time Backup Operations
             </h2>
@@ -158,8 +162,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             </p>
           </div>
 
-          <form onSubmit={handleTrigger} className="flex flex-wrap items-center gap-2.5">
-            <div className="flex items-center gap-1 rounded-md border border-[#222933] bg-[#0B0E11] p-1">
+          <form onSubmit={handleTrigger} className="flex flex-wrap items-center gap-2.5 xl:flex-nowrap shrink-0">
+            <div className="flex items-center gap-1 rounded-md border border-[#222933] bg-[#0B0E11] p-1 shrink-0">
               <button
                 type="button"
                 onClick={() => setSelectedMode('incremental')}
@@ -188,9 +192,9 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               type="text"
               value={labelInput}
               onChange={(e) => setLabelInput(e.target.value)}
-              placeholder="Optional snapshot label..."
+              placeholder="Optional label..."
               aria-label="Snapshot label"
-              className="w-48 rounded-md border border-[#222933] bg-[#0B0E11] px-3 py-2 text-xs text-[#E6EDF3] placeholder-[#6E7681] focus:border-emerald-400 focus:outline-none"
+              className="w-40 rounded-md border border-[#222933] bg-[#0B0E11] px-3 py-2 text-xs text-[#E6EDF3] placeholder-[#6E7681] focus:border-emerald-400 focus:outline-none"
             />
 
             <button
